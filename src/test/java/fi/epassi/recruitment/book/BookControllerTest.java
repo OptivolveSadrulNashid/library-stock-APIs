@@ -33,6 +33,7 @@ class BookControllerTest extends BaseIntegrationTest {
         .title("The Hobbit")
         .author("J.R.R Tolkien")
         .price(TEN)
+        .quantity(10)
         .build();
 
     private static final BookModel BOOK_FELLOWSHIP = BookModel.builder()
@@ -40,6 +41,7 @@ class BookControllerTest extends BaseIntegrationTest {
         .title("The Fellowship of the Rings")
         .author("J.R.R Tolkien")
         .price(TEN)
+        .quantity(25)
         .build();
 
     @Autowired
@@ -219,6 +221,111 @@ class BookControllerTest extends BaseIntegrationTest {
         response.andExpect(status().is4xxClientError())
             .andExpect(jsonPath("$.status", is(NOT_FOUND.value())))
             .andExpect(jsonPath("$.title", is("Not Found")));
+    }
+
+    @Test
+    @SneakyThrows
+    void shouldUpdateBookQuantityAndReturnId() {
+
+        // Given
+        var saved = bookRepository.save(BOOK_FELLOWSHIP);
+
+        // When
+        var bookQuantityDto = BookQuantityDto.builder()
+                .isbn(saved.getIsbn())
+                .quantity(7)
+                .build();
+        var bookQuantityDtoJson = mapper.writeValueAsString(bookQuantityDto);
+
+
+        var requestUrl = getEndpointUrl(BASE_PATH_V1_BOOK + "/quantity");
+        var request = put(requestUrl).contentType(APPLICATION_JSON).content(bookQuantityDtoJson);
+        var response = mvc.perform(request);
+
+        // Then
+        response.andExpect(status().is2xxSuccessful())
+                .andExpect(jsonPath("$.response", is(notNullValue())));
+    }
+
+    @Test
+    @SneakyThrows
+    void shouldReturnBookNotFoundForInvalidIsbn() {
+        // Given
+        var invalidIsbn = UUID.randomUUID();
+
+        // When
+        var bookQuantityDto = BookQuantityDto.builder()
+                .isbn(invalidIsbn)
+                .quantity(7)
+                .build();
+        var bookQuantityDtoJson = mapper.writeValueAsString(bookQuantityDto);
+
+
+        var requestUrl = getEndpointUrl(BASE_PATH_V1_BOOK + "/quantity");
+        var request = put(requestUrl).contentType(APPLICATION_JSON).content(bookQuantityDtoJson);
+        var response = mvc.perform(request);
+
+        // Then
+        response.andExpect(status().is4xxClientError())
+                .andExpect(jsonPath("$.status", is(NOT_FOUND.value())))
+                .andExpect(jsonPath("$.title", is("Not Found")));
+    }
+
+    @Test
+    @SneakyThrows
+    void shouldGetBookQuantityByIsbn() {
+        // Given
+        bookRepository.save(BOOK_HOBBIT);
+        bookRepository.save(BOOK_FELLOWSHIP);
+
+        // When
+        var requestUrl = getEndpointUrl(BASE_PATH_V1_BOOK + "/isbn");
+        var request = get(requestUrl).queryParam("isbn", "556aa37d-ef9c-45d3-ba4a-a792c123208a").contentType(APPLICATION_JSON);
+        var response = mvc.perform(request);
+
+        // Then
+        response.andExpect(status().is2xxSuccessful())
+                .andExpect(jsonPath("$.response", is(notNullValue())));
+    }
+
+
+
+    @Test
+    @SneakyThrows
+    void shouldGetBookQuantityByAuthor() {
+        // Given
+        bookRepository.save(BOOK_HOBBIT);
+        bookRepository.save(BOOK_FELLOWSHIP);
+        var author = "J.R.R Tolkien";
+
+        // When
+        var requestUrl = getEndpointUrl(BASE_PATH_V1_BOOK + "/author");
+        var request = get(requestUrl).queryParam("author", author).contentType(APPLICATION_JSON);
+        var response = mvc.perform(request);
+
+        // Then
+        response.andExpect(status().is2xxSuccessful())
+                .andExpect(jsonPath("$.response", is(notNullValue())))
+        .andExpect(jsonPath("$.response", is(35)));
+    }
+
+    @Test
+    @SneakyThrows
+    void shouldGetBookQuantityByTitle() {
+        // Given
+        bookRepository.save(BOOK_HOBBIT);
+        bookRepository.save(BOOK_FELLOWSHIP);
+        var title = "The Hobbit";
+
+        // When
+        var requestUrl = getEndpointUrl(BASE_PATH_V1_BOOK + "/title");
+        var request = get(requestUrl).queryParam("title", title).contentType(APPLICATION_JSON);
+        var response = mvc.perform(request);
+
+        // Then
+        response.andExpect(status().is2xxSuccessful())
+                .andExpect(jsonPath("$.response", is(notNullValue())))
+        .andExpect(jsonPath("$.response", is(10)));
     }
 
 }
