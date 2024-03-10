@@ -91,8 +91,9 @@ class BookControllerTest extends BaseIntegrationTest {
 
         // Then
         response.andExpect(status().is2xxSuccessful())
-            .andExpect(jsonPath("$.response[0].author", is("J.R.R Tolkien")))
-            .andExpect(jsonPath("$.response[0].title", is(notNullValue())));
+            .andExpect(jsonPath("$.response.empty", is(false)))
+            .andExpect(jsonPath("$.response.content[0].author", is("J.R.R Tolkien")))
+            .andExpect(jsonPath("$.response.content[0].title", is(notNullValue())));
     }
 
     @Test
@@ -108,8 +109,9 @@ class BookControllerTest extends BaseIntegrationTest {
 
         // Then
         response.andExpect(status().is2xxSuccessful())
-            .andExpect(jsonPath("$.response[0].author", is("J.R.R Tolkien")))
-            .andExpect(jsonPath("$.response[0].title", is("The Hobbit")));
+            .andExpect(jsonPath("$.response.empty", is(false)))
+            .andExpect(jsonPath("$.response.content[0].author", is("J.R.R Tolkien")))
+            .andExpect(jsonPath("$.response.content[0].title", is("The Hobbit")));
     }
 
     @Test
@@ -122,7 +124,9 @@ class BookControllerTest extends BaseIntegrationTest {
 
         // Then
         response.andExpect(status().is2xxSuccessful())
-            .andExpect(jsonPath("$.response", is(empty())));
+            .andExpect(jsonPath("$.response.empty", is(true)))
+            .andExpect(jsonPath("$.response.number_of_elements", is(0)))
+            .andExpect(jsonPath("$.response.total_elements", is(0)));
     }
 
     @Test

@@ -1,13 +1,15 @@
 package fi.epassi.recruitment.book;
 
 import fi.epassi.recruitment.exception.BookNotFoundException;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -32,16 +34,17 @@ public class BookService {
     }
 
 
-    public List<BookDto> getBooks(String author, String title) {
+    public Page<BookDto> getBooks(String author, String title, Pageable pageable) {
+
         if (StringUtils.isNotBlank(author) && StringUtils.isNotBlank(title)) {
-            return bookRepository.findByAuthorAndTitle(author, title).stream().map(BookService::toBookDto).toList();
+            return bookRepository.findByAuthorAndTitle(author, title,pageable).map(BookService::toBookDto);
         } else if (StringUtils.isNotBlank(author) && StringUtils.isBlank(title)) {
-            return bookRepository.findByAuthor(author).stream().map(BookService::toBookDto).toList();
+            return bookRepository.findByAuthor(author, pageable).map(BookService::toBookDto);
         } else if (StringUtils.isNotBlank(title) && StringUtils.isBlank(author)) {
-            return bookRepository.findByTitle(title).stream().map(BookService::toBookDto).toList();
+            return bookRepository.findByTitle(title, pageable).map(BookService::toBookDto);
         }
 
-        return bookRepository.findAll().stream().map(BookService::toBookDto).toList();
+        return bookRepository.findAll(pageable).map(BookService::toBookDto);
     }
 
     public int getBookQuantityByIsbn(@NonNull UUID isbn){
@@ -50,14 +53,14 @@ public class BookService {
     }
 
     public int getBookQuantityByAuthor(@NonNull String author){
-        return bookRepository.findByAuthor(author)
+        return bookRepository.findByAuthor(author,Pageable.unpaged())
                 .stream()
                 .mapToInt(BookModel::getQuantity)
                 .sum();
     }
 
     public int getBookQuantityByTitle(@NonNull String title){
-        return bookRepository.findByTitle(title)
+        return bookRepository.findByTitle(title,Pageable.unpaged())
                 .stream()
                 .mapToInt(BookModel::getQuantity)
                 .sum();
