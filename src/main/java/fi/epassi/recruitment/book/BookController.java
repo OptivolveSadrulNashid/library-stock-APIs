@@ -51,25 +51,25 @@ public class BookController {
         return ApiResponse.ok();
     }
 
-    @PutMapping("/quantity")
-    ApiResponse<UUID> updateBookQuantity(@RequestBody @Validated BookQuantityDto bookQuantityDto) {
-        var ret = bookService.updateBookQuantity(bookQuantityDto);
-        return ApiResponse.ok(ret);
-    }
-
-    @GetMapping("/isbn")
-    ApiResponse<Integer> getBookQuantityByIsbn(@RequestParam UUID isbn){
-        return ApiResponse.ok(bookService.getBookQuantityByIsbn(isbn));
-    }
-
-    @GetMapping("/author")
-    ApiResponse<Integer> getBookQuantityByAuthor(@RequestParam String author) {
-        return ApiResponse.ok(bookService.getBookQuantityByAuthor(author));
-    }
-
-    @GetMapping("/title")
-    ApiResponse<Integer> getBookByQuantityTitle(@RequestParam String title) {
-        return ApiResponse.ok(bookService.getBookQuantityByTitle(title));
-    }
+//    @PutMapping("/quantity")
+//    ApiResponse<UUID> updateBookQuantity(@RequestBody @Validated BookQuantityDto bookQuantityDto) {
+//        var ret = bookService.updateBookQuantity(bookQuantityDto);
+//        return ApiResponse.ok(ret);
+//    }
+//
+//    @GetMapping("/isbn")
+//    ApiResponse<Integer> getBookQuantityByIsbn(@RequestParam UUID isbn){
+//        return ApiResponse.ok(bookService.getBookQuantityByIsbn(isbn));
+//    }
+//
+//    @GetMapping("/author")
+//    ApiResponse<Integer> getBookQuantityByAuthor(@RequestParam String author) {
+//        return ApiResponse.ok(bookService.getBookQuantityByAuthor(author));
+//    }
+//
+//    @GetMapping("/title")
+//    ApiResponse<Integer> getBookByQuantityTitle(@RequestParam String title) {
+//        return ApiResponse.ok(bookService.getBookQuantityByTitle(title));
+//    }
 
 }

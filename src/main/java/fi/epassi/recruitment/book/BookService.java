@@ -47,24 +47,24 @@ public class BookService {
         return bookRepository.findAll(pageable).map(BookService::toBookDto);
     }
 
-    public int getBookQuantityByIsbn(@NonNull UUID isbn){
-        Optional<Integer> quantityOptional = bookRepository.findByIsbn(isbn).map(BookModel::getQuantity);
-        return  quantityOptional.orElseThrow(() -> new BookNotFoundException(isbn.toString()));
-    }
+//    public int getBookQuantityByIsbn(@NonNull UUID isbn){
+//        Optional<Integer> quantityOptional = bookRepository.findByIsbn(isbn).map(BookModel::getQuantity);
+//        return  quantityOptional.orElseThrow(() -> new BookNotFoundException(isbn.toString()));
+//    }
 
-    public int getBookQuantityByAuthor(@NonNull String author){
-        return bookRepository.findByAuthor(author,Pageable.unpaged())
-                .stream()
-                .mapToInt(BookModel::getQuantity)
-                .sum();
-    }
-
-    public int getBookQuantityByTitle(@NonNull String title){
-        return bookRepository.findByTitle(title,Pageable.unpaged())
-                .stream()
-                .mapToInt(BookModel::getQuantity)
-                .sum();
-    }
+//    public int getBookQuantityByAuthor(@NonNull String author){
+//        return bookRepository.findByAuthor(author,Pageable.unpaged())
+//                .stream()
+//                .mapToInt(BookModel::getQuantity)
+//                .sum();
+//    }
+//
+//    public int getBookQuantityByTitle(@NonNull String title){
+//        return bookRepository.findByTitle(title,Pageable.unpaged())
+//                .stream()
+//                .mapToInt(BookModel::getQuantity)
+//                .sum();
+//    }
 
     public UUID updateBook(BookDto bookDto) {
         if (bookRepository.findByIsbn(bookDto.getIsbn()).isPresent()) {
@@ -76,17 +76,17 @@ public class BookService {
         throw new BookNotFoundException(bookDto.getIsbn().toString());
     }
 
-    public UUID updateBookQuantity(BookQuantityDto bookQuantityDto) {
-        if (bookRepository.findByIsbn(bookQuantityDto.getIsbn()).isPresent()) {
-            BookModel bookModel = bookRepository.findByIsbn(bookQuantityDto.getIsbn()).get();
-            bookModel.setQuantity(bookQuantityDto.getQuantity());
-
-            var savedBook = bookRepository.save(bookModel);
-            return savedBook.getIsbn();
-        }
-
-        throw new BookNotFoundException(bookQuantityDto.getIsbn().toString());
-    }
+//    public UUID updateBookQuantity(BookQuantityDto bookQuantityDto) {
+//        if (bookRepository.findByIsbn(bookQuantityDto.getIsbn()).isPresent()) {
+//            BookModel bookModel = bookRepository.findByIsbn(bookQuantityDto.getIsbn()).get();
+//            bookModel.setQuantity(bookQuantityDto.getQuantity());
+//
+//            var savedBook = bookRepository.save(bookModel);
+//            return savedBook.getIsbn();
+//        }
+//
+//        throw new BookNotFoundException(bookQuantityDto.getIsbn().toString());
+//    }
 
     private static BookModel toBookModel(BookDto bookDto) {
         return BookModel.builder()
