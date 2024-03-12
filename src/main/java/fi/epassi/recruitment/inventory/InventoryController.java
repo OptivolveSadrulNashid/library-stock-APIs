@@ -1,12 +1,8 @@
 package fi.epassi.recruitment.inventory;
 
 import fi.epassi.recruitment.api.ApiResponse;
-import fi.epassi.recruitment.book.BookDto;
-import fi.epassi.recruitment.bookstore.BookStoreDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
