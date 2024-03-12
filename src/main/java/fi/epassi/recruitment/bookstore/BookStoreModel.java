@@ -1,11 +1,11 @@
 package fi.epassi.recruitment.bookstore;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import fi.epassi.recruitment.inventory.InventoryModel;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
+
+import java.util.List;
 
 @Entity
 @Data
@@ -26,7 +26,10 @@ public class BookStoreModel {
     @NotBlank
     private String address;
 
-    private String contact_person;
+    private String contactPerson;
 
-    private String open_days;
+    private String openDays;
+
+    @OneToMany(mappedBy = "bookstore")
+    private List<InventoryModel> inventory;
 }

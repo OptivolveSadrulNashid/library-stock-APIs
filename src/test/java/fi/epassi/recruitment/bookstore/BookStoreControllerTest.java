@@ -1,13 +1,9 @@
 package fi.epassi.recruitment.bookstore;
 
-import fi.epassi.recruitment.book.BookDto;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.UUID;
-
-import static java.math.BigDecimal.TEN;
 import static org.hamcrest.Matchers.*;
 import static org.springframework.http.HttpStatus.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
@@ -26,16 +22,16 @@ public class BookStoreControllerTest extends BaseIntegrationTest {
             .storeId(221)
             .name("Nashid Store")
             .address("Espoo")
-            .contact_person("Nashid")
-            .open_days("From Monday to Friday")
+            .contactPerson("Nashid")
+            .openDays("From Monday to Friday")
             .build();
 
     private static final BookStoreModel ONLINE_STORE = BookStoreModel.builder()
             .storeId(201)
             .name("Online Book Valley")
             .address("In online")
-            .contact_person("John")
-            .open_days("24 hours all day")
+            .contactPerson("John")
+            .openDays("24 hours all day")
             .build();
 
     @Autowired

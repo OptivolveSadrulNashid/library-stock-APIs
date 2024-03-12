@@ -7,10 +7,11 @@ CREATE TABLE `bookstore` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `inventory` (
+    `inventory_id` varchar(36) NOT NULL,
     `store_id` INT,
-    `book_id` INT,
+    `book_id` varchar(36) NOT NULL,
     `quantity` INT NOT NULL,
-    PRIMARY KEY (`store_id`, `book_id`),
+    PRIMARY KEY (`inventory_id`),
     FOREIGN KEY (`store_id`) REFERENCES `bookstore` (`store_id`),
     FOREIGN KEY (`book_id`) REFERENCES `books` (`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

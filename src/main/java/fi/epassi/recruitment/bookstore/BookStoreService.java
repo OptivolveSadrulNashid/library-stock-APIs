@@ -62,8 +62,8 @@ public class BookStoreService {
                 .storeId(bookStoreDto.getStore_id())
                 .name(bookStoreDto.getName())
                 .address(bookStoreDto.getAddress())
-                .contact_person(bookStoreDto.getContact_person())
-                .open_days(bookStoreDto.getOpen_days())
+                .contactPerson(bookStoreDto.getContact_person())
+                .openDays(bookStoreDto.getOpen_days())
                 .build();
     }
 
@@ -72,8 +72,8 @@ public class BookStoreService {
                 .store_id(bookStoreModel.getStoreId())
                 .name(bookStoreModel.getName())
                 .address(bookStoreModel.getAddress())
-                .contact_person(bookStoreModel.getContact_person())
-                .open_days(bookStoreModel.getOpen_days())
+                .contact_person(bookStoreModel.getContactPerson())
+                .open_days(bookStoreModel.getOpenDays())
                 .build();
     }
 }
