@@ -1,14 +1,3 @@
-# Epassi Recruitment App
-
-## General information
-
-- In this recruitment process, we would like to see how you think and what your approach is to the given problem.
-- We expect that you will write production-ready code with tests, where the project builds without issues and all tests are passing.
-- In each task, you will read some business backstory and rough description of the assigment, which should help you think in the right direction.
-- For each task, please create separate branches, i.e., "task-1", "task-2", "task-3".
-- Tip: It would be best to base one task's branch on the previous one, creating somewhat a cascade of branches.
-- Extra note: Using AI tools is not allowed, as we want to see how you really think.
-
 ## Project backstory
 
 Imagine that you are working in the R&D department of a Bookstore company.\
@@ -131,10 +120,6 @@ and [BookModel](src/main/java/fi/epassi/recruitment/book/BookModel.java) for sto
 Note: each response is encapsulated in [ApiResponse](src/main/java/fi/epassi/recruitment/api/ApiResponse.java) entity, which we use, to make sure that
 we will always have the same structure of the response.
 
-## Your assignments
-
-Before working on the tasks, make sure, that you have initialized fresh git repository.
-
 ### Task #1 - Missing feature required by grand opening
 
 - **Backstory**:\
@@ -180,16 +165,3 @@ Before working on the tasks, make sure, that you have initialized fresh git repo
   You need to implement solution introducing a "Bookstore" entity, with name, address etc. and extend the way that we're storing number of available
   Books to now be related to specific Bookstore.
 
-## Recruitment Task Delivery
-
-Upon completing your assignment, please follow the steps below:
-
-- Create a **private** repository on [GitHub](https://github.com). ([See screenshot](github/create-private-repository.png))
-- Upload the code to the mentioned repository. ([See screenshot](github/push-existing-repo-to-origin.png))
-- Invite a collaborator with the name "epassi-group":
-    - Navigate to `Settings` > `Access` > `Collaborators` > `Add People` ([See screenshot](github/manage-repository-access.png))
-    - Locate the account `epassi-group` and
-      click `Add epassi-group to this repository` ([See screenshot](github/invite-collaborator-to-repository.png))
-- Send an email to `recruitment-task@epassi.com` and your technical recruiters as recipients.\
-  Provide information indicating that the repository has been shared, including the repository name.\
-  Then we will be able to continue the Recruitment process.
